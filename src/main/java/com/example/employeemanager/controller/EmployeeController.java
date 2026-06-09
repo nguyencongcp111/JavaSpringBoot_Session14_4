@@ -1,7 +1,7 @@
 package com.example.employeemanager.controller;
 
-import com.example.employeemanager.models.entity.Employees;
-import com.example.employeemanager.service.EmployeesService;
+import com.example.employeemanager.models.entity.Employee;
+import com.example.employeemanager.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +12,11 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/employees")
-public class EmployeesController {
-    private final EmployeesService employeesService;
+public class EmployeeController {
+    private final EmployeeService employeeService;
 
     @GetMapping
-    public List<Employees> getEmployees () {
-        return employeesService.getEmployees();
+    public List<Employee> getEmployees () {
+        return employeeService.getEmployees();
     }
 }

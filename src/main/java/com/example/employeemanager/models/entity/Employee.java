@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class Employees {
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
