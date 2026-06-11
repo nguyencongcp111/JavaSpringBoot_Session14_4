@@ -1,6 +1,6 @@
 package com.example.employeemanager.security.jwt;
 
-import com.example.employeemanager.security.principal.UserPrincipal;
+import com.example.employeemanager.exception.JWTAuthenticationException;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,15 +39,15 @@ public class JWTProvider {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
         } catch (ExpiredJwtException e) {
-            throw new RuntimeException("Token hết hạn");
+            throw new JWTAuthenticationException("Token hết hạn");
         } catch (SignatureException e) {
-            throw new RuntimeException("Chữ ký token không hợp lệ");
+            throw new JWTAuthenticationException("Chữ ký token không hợp lệ");
         }catch (MalformedJwtException e) {
-            throw new RuntimeException("Token không đúng định dạng");
+            throw new JWTAuthenticationException("Token không đúng định dạng");
         } catch (IllegalArgumentException e){
-            throw new RuntimeException("Token rỗng");
+            throw new JWTAuthenticationException("Token rỗng");
         } catch (Exception e) {
-            throw new RuntimeException("Không hỗ trợ Token");
+            throw new JWTAuthenticationException("Không hỗ trợ Token");
         }
     }
 

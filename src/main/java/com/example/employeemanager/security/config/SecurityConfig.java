@@ -1,6 +1,7 @@
 package com.example.employeemanager.security.config;
 
 import com.example.employeemanager.models.entity.Roles;
+import com.example.employeemanager.security.jwt.JWTAuthenticationEntryPoint;
 import com.example.employeemanager.security.jwt.JWTAuthenticatorFilter;
 import com.example.employeemanager.security.principal.CustomUserDetailService;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/employees/**").hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated())
                 .cors(Customizer.withDefaults())
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(new JWTAuthenticationEntryPoint()))
                 .sessionManagement(ss -> ss.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticatorFilter, UsernamePasswordAuthenticationFilter.class);

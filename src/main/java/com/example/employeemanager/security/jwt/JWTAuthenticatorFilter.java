@@ -1,5 +1,7 @@
 package com.example.employeemanager.security.jwt;
 
+import com.example.employeemanager.exception.JWTAuthenticationException;
+import com.example.employeemanager.exception.TokenExpiredException;
 import com.example.employeemanager.security.principal.CustomUserDetailService;
 import com.example.employeemanager.security.principal.UserPrincipal;
 import jakarta.servlet.FilterChain;
@@ -40,16 +42,29 @@ public class JWTAuthenticatorFilter extends OncePerRequestFilter {
     ) throws IOException, ServletException {
         String token = getTokenFromRequest(request);
 
-        if (token != null && jwtProvider.validateToken(token)) {
-            String username = jwtProvider.getUsernameFromToken(token);
-            UserDetails userDetails = customUserDetailService.loadUserByUsername(username);
+        try {
+            if (token != null && jwtProvider.validateToken(token)) {
+                String username = jwtProvider.getUsernameFromToken(token);
+                UserDetails userDetails = customUserDetailService.loadUserByUsername(username);
 
-            UsernamePasswordAuthenticationToken auth =
-                    new UsernamePasswordAuthenticationToken(userDetails, null,
-                            userDetails.getAuthorities());
-            auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(auth);
+                UsernamePasswordAuthenticationToken auth =
+                        new UsernamePasswordAuthenticationToken(userDetails, null,
+                                userDetails.getAuthorities());
+                auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            }
+            chain.doFilter(request, response);
+        } catch (JWTAuthenticationException e) {
+            System.out.println(
+                    "JWT ERROR = " + e.getMessage()
+            );
+
+            request.setAttribute("jwt_error", e.getMessage());
+
+            response.sendError(
+                    HttpServletResponse.SC_UNAUTHORIZED,
+                    e.getMessage()
+            );
         }
-        chain.doFilter(request, response);
     }
 }
