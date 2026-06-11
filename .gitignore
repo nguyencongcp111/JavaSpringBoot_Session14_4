@@ -35,6 +35,3 @@ out/
 
 ### VS Code ###
 .vscode/
-
-## CONFIG ##
-**/src/main/java/com/example/employeemanager/security/config/CloudinaryConfig.java
