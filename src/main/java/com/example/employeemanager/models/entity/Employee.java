@@ -20,4 +20,8 @@ public class Employee {
     private String fullName;
 
     private double salary;
+
+    private String department;
+
+    private String avatarUrl;
 }

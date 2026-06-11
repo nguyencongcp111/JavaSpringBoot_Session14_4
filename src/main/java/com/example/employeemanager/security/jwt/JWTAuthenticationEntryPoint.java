@@ -25,7 +25,7 @@ public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint {
                 (String) request.getAttribute("jwt_error");
 
         if (message == null) {
-            message = "thông báo";
+            message = "Chưa đăng nhập hoặc token rỗng.";
         }
 
         Map<String, Object> errors = new HashMap<>();

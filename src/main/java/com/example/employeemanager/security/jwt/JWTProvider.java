@@ -42,7 +42,7 @@ public class JWTProvider {
             throw new JWTAuthenticationException("Token hết hạn");
         } catch (SignatureException e) {
             throw new JWTAuthenticationException("Chữ ký token không hợp lệ");
-        }catch (MalformedJwtException e) {
+        } catch (MalformedJwtException e) {
             throw new JWTAuthenticationException("Token không đúng định dạng");
         } catch (IllegalArgumentException e){
             throw new JWTAuthenticationException("Token rỗng");

@@ -34,7 +34,6 @@ public class SecurityConfig {
         httpSecurity.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(req -> req
                         .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers("/api/v1/employees/**").hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated())
                 .cors(Customizer.withDefaults())
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(new JWTAuthenticationEntryPoint()))
