@@ -1,9 +1,7 @@
 package com.example.employeemanager.security.principal;
 
 import com.example.employeemanager.models.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,6 +9,8 @@ import java.util.Collection;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Builder
 public class UserPrincipal implements UserDetails {
     private User user;

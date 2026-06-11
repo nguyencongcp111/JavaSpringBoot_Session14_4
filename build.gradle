@@ -30,9 +30,15 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-security-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
     testCompileOnly 'org.projectlombok:lombok'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testAnnotationProcessor 'org.projectlombok:lombok'
+    // Source: https://mvnrepository.com/artifact/org.mindrot/jbcrypt
+    implementation("org.mindrot:jbcrypt:0.4")
+    implementation 'javax.activation:activation:1.1.1'
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
 }
 
 tasks.named('test') {

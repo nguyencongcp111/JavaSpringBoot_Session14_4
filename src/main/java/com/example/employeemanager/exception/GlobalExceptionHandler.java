@@ -16,7 +16,6 @@ public class GlobalExceptionHandler {
             WrongUsernameOrPasswordException exception,
             WebRequest request
     ) {
-        System.out.println("EXCEPTION HANDLER CALLED");
 
         ErrorResponse response = new ErrorResponse<>();
         response.setTimestamp(LocalDateTime.now());
