@@ -1,8 +1,7 @@
 package com.example.employeemanager.security.jwt;
 
 import com.example.employeemanager.security.principal.UserPrincipal;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -33,5 +32,26 @@ public class JWTProvider {
         } catch (Exception e) {
             throw new RuntimeException("Không tạo được chuỗi token ", e);
         }
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            return true;
+        } catch (ExpiredJwtException e) {
+            throw new RuntimeException("Token hết hạn");
+        } catch (SignatureException e) {
+            throw new RuntimeException("Chữ ký token không hợp lệ");
+        }catch (MalformedJwtException e) {
+            throw new RuntimeException("Token không đúng định dạng");
+        } catch (IllegalArgumentException e){
+            throw new RuntimeException("Token rỗng");
+        } catch (Exception e) {
+            throw new RuntimeException("Không hỗ trợ Token");
+        }
+    }
+
+    public String getUsernameFromToken(String token) {
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 }
