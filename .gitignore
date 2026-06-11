@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ## CONFIG ##
-!**/src/main/java/com/example/employeemanager/security/config/CloudinaryConfig.java
+**/src/main/java/com/example/employeemanager/security/config/CloudinaryConfig.java
